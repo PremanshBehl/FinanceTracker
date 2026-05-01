@@ -15,7 +15,10 @@ import dashboardRoutes from './routes/dashboardRoutes.js';
 const app = express();
 
 // Global Middlewares
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: false,
+}));
+
 
 // 1. Advanced CORS Configuration
 const allowedOrigins = [
