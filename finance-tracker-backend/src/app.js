@@ -14,18 +14,20 @@ import dashboardRoutes from './routes/dashboardRoutes.js';
 
 const app = express();
 
-// Global Middlewares
+// 1. Debugging & Health Check Endpoints
+app.get('/', (req, res) => res.status(200).send('Finance Tracker API is Live! 🚀'));
+app.get('/api/health', (req, res) => res.status(200).json({ status: 'healthy', timestamp: new Date() }));
+
+// 2. Global Middlewares
 app.use(helmet({
   crossOriginResourcePolicy: false,
 }));
 
-
-// 1. Advanced CORS Configuration
+// 3. Advanced CORS Configuration
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://finance-tracker-kgri.vercel.app',
-  process.env.FRONTEND_URL
-].filter(Boolean);
+  'https://finance-tracker-kgri.vercel.app'
+];
 
 const corsOptions = {
   origin: (origin, callback) => {
