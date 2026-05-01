@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { useAuthStore } from '../store/authStore';
 import { User as UserIcon, Mail, Shield } from 'lucide-react';
 import { motion } from 'framer-motion';

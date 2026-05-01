@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { Wallet, ArrowUpRight, ArrowDownRight, Target } from 'lucide-react';
+import { Wallet, ArrowUpRight, ArrowDownRight, PieChart as PieChartIcon, BarChart as BarChartIcon } from 'lucide-react';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, ResponsiveContainer,
   PieChart, Pie, Cell, Legend
@@ -35,7 +35,7 @@ export const Dashboard = () => {
     );
   }
 
-  const formatCurrency = (val: number) => `$${val.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
+  const formatCurrency = (val: any) => `$${Number(val || 0).toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
 
   const stats = [
     { name: 'Total Balance', value: data?.savings, icon: Wallet, color: 'text-primary-600', bg: 'bg-primary-100' },
@@ -64,7 +64,7 @@ export const Dashboard = () => {
               </div>
               <div>
                 <p className="text-sm font-medium text-slate-500">{stat.name}</p>
-                <h3 className="text-2xl font-bold text-slate-900">{formatCurrency(stat.value || 0)}</h3>
+                <h3 className="text-2xl font-bold text-slate-900">{formatCurrency(stat.value)}</h3>
               </div>
             </div>
           </motion.div>
@@ -93,17 +93,17 @@ export const Dashboard = () => {
                     dataKey="totalAmount"
                     nameKey="categoryName"
                   >
-                    {data.categorySpending.map((entry: any, index: number) => (
+                    {data.categorySpending.map((_: any, index: number) => (
                       <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>
-                  <RechartsTooltip formatter={(value: number) => formatCurrency(value)} />
+                  <RechartsTooltip formatter={(value: any) => formatCurrency(value)} />
                   <Legend />
                 </PieChart>
               </ResponsiveContainer>
             ) : (
               <div className="h-full flex flex-col items-center justify-center text-slate-400">
-                <PieChart className="w-16 h-16 mb-2 opacity-50" />
+                <PieChartIcon className="w-16 h-16 mb-2 opacity-50" />
                 <p>No expense data available</p>
               </div>
             )}
@@ -124,13 +124,13 @@ export const Dashboard = () => {
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
                   <XAxis dataKey="categoryName" axisLine={false} tickLine={false} />
                   <YAxis axisLine={false} tickLine={false} tickFormatter={(val) => `$${val}`} />
-                  <RechartsTooltip cursor={{fill: '#f8fafc'}} formatter={(value: number) => formatCurrency(value)} />
+                  <RechartsTooltip cursor={{fill: '#f8fafc'}} formatter={(value: any) => formatCurrency(value)} />
                   <Bar dataKey="totalAmount" fill="#3b82f6" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             ) : (
               <div className="h-full flex flex-col items-center justify-center text-slate-400">
-                <BarChart className="w-16 h-16 mb-2 opacity-50" />
+                <BarChartIcon className="w-16 h-16 mb-2 opacity-50" />
                 <p>No expense data available</p>
               </div>
             )}

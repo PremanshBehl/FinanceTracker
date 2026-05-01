@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Download, FileText, TrendingUp, TrendingDown } from 'lucide-react';
 import { motion } from 'framer-motion';
 
